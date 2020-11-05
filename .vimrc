@@ -32,7 +32,6 @@ set encoding=UTF-8
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'ycm-core/YouCompleteMe'
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -59,7 +58,7 @@ nnoremap <C-l> <C-w><C-w>
 nnoremap <C-h> <C-w><C-h>
 
 " Clang format on save.
-nmap :w :ClangFormat<Enter>
+nnoremap <C-k> :ClangFormat<Enter>
 
 let g:clang_format#style_options = {
             \ "AccessModifierOffset" : -4,
@@ -69,14 +68,20 @@ let g:clang_format#style_options = {
 
 set backspace=indent,eol,start
 
-let g:ycm_global_ycm_extra_conf = '$HOME/.vim/ycm_extra_conf/ycm_extra_conf.py'
-let g:ycm_show_diagnostics_ui = 0
-
-let g:syntastic_c_include_dirs = ['includes']
-let g:syntastic_c_check_header = 1
 let g:syntastic_cpp_include_dirs = ['includes']
 let g:syntastic_cpp_check_header = 1
+let g:syntastic_cpp_checkers = [ 'cppcheck' ]
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_aggregate_errors = 1
+
+let g:gruvbox_bold = 0
 " To make YouCompleteMe work for specific languages:
 
 " Navigate to ~/.vim/Plugged/YouCompleteMe/
